@@ -1,0 +1,58 @@
+{
+  "name": "qnode-base",
+  "version": "2.0.0",
+  "description": "base library for qnode framework",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "scripts": {
+    "coverage": "node ./node_modules/istanbul/lib/cli.js cover -color ./node_modules/jasmine/bin/jasmine.js",
+    "test": "node ./node_modules/jasmine/bin/jasmine.js",
+    "clean": "node_modules/.bin/gulp clean",
+    "dist": "node_modules/.bin/gulp clean | node_modules/.bin/gulp clean default"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qiangyt/qnode-base.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/qiangyt/qnode-base/issues"
+  },
+  "homepage": "https://github.com/qiangyt/qnode-base#readme",
+  "devDependencies": {
+    "@types/bunyan": "1.8.4",
+    "@types/get-caller-file": "1.0.0",
+    "@types/js-yaml": "3.11.2",
+    "@types/lodash": "4.14.114",
+    "@types/merge2": "1.1.4",
+    "@types/mkdirp": "0.5.2",
+    "@types/mock-require": "2.0.0",
+    "@types/node": "8.10.0",
+    "@types/rimraf": "2.0.2",
+    "@types/sprintf-js": "1.1.0",
+    "@types/uuid": "3.4.3",
+    "gulp": "3.9.1",
+    "gulp-sourcemaps": "2.6.4",
+    "gulp-typescript": "5.0.0-alpha.3",
+    "gulp-util": "3.0.8",
+    "istanbul": "1.1.0-alpha.1",
+    "jasmine": "3.1.0",
+    "mock-fs": "4.5.0",
+    "sinon": "6.1.4",
+    "typescript": "2.9.2"
+  },
+  "dependencies": {
+    "bunyan": "1.8.12",
+    "get-caller-file": "1.0.3",
+    "js-yaml": "3.12.0",
+    "lodash": "4.17.10",
+    "merge2": "1.2.2",
+    "mkdirp": "0.5.1",
+    "mock-require": "3.0.2",
+    "moment": "2.22.2",
+    "rimraf": "2.6.2",
+    "sprintf-js": "1.1.1",
+    "uuid": "3.3.2"
+  }
+}
