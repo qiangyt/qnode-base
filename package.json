@@ -5,10 +5,10 @@
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "scripts": {
-    "coverage": "node ./node_modules/istanbul/lib/cli.js cover -color ./node_modules/jasmine/bin/jasmine.js",
-    "test": "node ./node_modules/jasmine/bin/jasmine.js",
     "clean": "node_modules/.bin/gulp clean",
-    "dist": "node_modules/.bin/gulp clean | node_modules/.bin/gulp clean default"
+    "dist": "node_modules/.bin/gulp clean default",
+    "cover": "npm run dist && NODE_ENV=test QNODE_PRODUCT=qnode QNODE_MODULE=beans QNODE_LOG_LEVEL=error node ./node_modules/istanbul/lib/cli.js cover -color ./node_modules/jasmine/bin/jasmine.js",
+    "test": "npm run dist && NODE_ENV=test QNODE_PRODUCT=qnode QNODE_MODULE=beans QNODE_LOG_LEVEL=error node ./node_modules/jasmine/bin/jasmine.js"
   },
   "repository": {
     "type": "git",
@@ -42,7 +42,6 @@
     "@types/rimraf": "2.0.2",
     "@types/sprintf-js": "1.1.0",
     "@types/uuid": "3.4.3",
-    
     "bunyan": "1.8.12",
     "get-caller-file": "1.0.3",
     "js-yaml": "3.12.0",

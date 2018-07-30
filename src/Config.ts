@@ -5,56 +5,63 @@ import * as Path from 'path';
 import * as Os from 'os';
 import * as _ from 'lodash';
 import CodePath from './util/CodePath';
+import * as Misc from './util/Misc';
 
 const Yaml = require('js-yaml');
 const Mkdirp = require('mkdirp');
 
 const env = process.env;
-const ENV = env.NODE_ENV;
+const ENV = env.NODE_ENV || 'test';
 
 const YAML_LOAD_OPTIONS = {};
 const YAML_DUMP_OPTIONS = {};
-const FILE_READ_OPTIONS = { encoding: 'utf-8' || env[global.PROJECT_PREFIX + '_CHARSET'] || env.CHARSET };
+const FILE_READ_OPTIONS = { encoding: 'utf-8' || env.CHARSET };
 
+const pkg = require(CodePath.resolve('../package.json'));
 
 declare module global {
     let isLinux:boolean;
     let isMac:boolean;
-    let PROJECT_PREFIX:string;
-    let workFolder:string;
 
+    let product:string;
+    let module:string;
+    let workFolder:string;
+    let profile:string;
+    
     let isLocal:boolean;
     let isDev:boolean;
     let isTest:boolean;
     let isUat:boolean;
     let isProd:boolean;
-
-    let pkg:any;
 }
 
+global.isLinux = (Os.platform() === 'linux');
+global.isMac = (Os.platform() === 'darwin');
 
 global.isLocal = ('local' === ENV);
 global.isDev = ('dev' === ENV);
 global.isTest = ('test' === ENV);
 global.isUat = ('uat' === ENV);
 global.isProd = ('prod' === ENV);
-
-
-const pkg = global.pkg = require(CodePath.resolve('../package.json'));
+global.product = env['QNODE_PRODUCT'] || Misc.uuid();
+global.module = env['QNODE_MODULE'] || pkg.name;
+global.profile = ENV;
 
 let workFolderBase;
 if (global.isLinux || global.isMac) workFolderBase = '/data';
 else workFolderBase = Os.tmpdir();
 
-global.workFolder = Path.join(workFolderBase, pkg.product, ENV, pkg.name, 'work');
+global.workFolder = Path.join(workFolderBase, global.product, global.profile, global.module);
 Mkdirp.sync(global.workFolder);
 
 console.log(JSON.stringify({
     isLinux: global.isLinux,
     isMac: global.isMac,
-
+    product: global.product,
+    module: global.module,
     workFolder: global.workFolder,
-
+    profile: global.profile,
+    
     isLocal: global.isLocal,
     isDev: global.isDev,
     isTest: global.isTest,
@@ -133,7 +140,7 @@ export default class Config {
 
         r.base = Path.normalize(Path.join(r.dir, n));
 
-        r.profile = r.profile || env[global.PROJECT_PREFIX + '_PROFILE'] || ENV;
+        r.profile = r.profile || global.profile;
 
         return r;
     }
@@ -202,7 +209,7 @@ export default class Config {
     }
 
 
-    constructor( public name:string, public dir:string, defaultConfig:any = undefined ) {
+    constructor( public name:string, public dir:string, defaultConfig:any = {} ) {
         const r = this.object = this._load({dir, name}, defaultConfig);
         
         r.dump = this.dump.bind(this);

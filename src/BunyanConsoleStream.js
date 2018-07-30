@@ -542,8 +542,9 @@ function emitRecord(rec, line, opts, stylize) {
 
 
 function emit(s) {
+    const stdConsole = this.stdConsole || process.stdout;
     try {
-        process.stdout.write(s);
+        stdConsole.write(s);
     } catch (writeErr) {
         _selfTrace('exception from stdout.write:', writeErr)
         // Handle any exceptions in stdout writing in `stdout.on('error', ...)`.
@@ -552,7 +553,8 @@ function emit(s) {
 
 
 
-function BunyanConsoleStream() {
+function BunyanConsoleStream(stdConsole) {
+    this.stdConsole = stdConsole;
     this.writable = true;
     EventEmitter.call(this);
 }

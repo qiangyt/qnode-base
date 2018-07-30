@@ -156,12 +156,6 @@
   dependencies:
     "@types/node" "*"
 
-"@types/mock-require@2.0.0":
-  version "2.0.0"
-  resolved "https://registry.npmjs.org/@types/mock-require/-/mock-require-2.0.0.tgz#57a4f0db0b4b6274f610a2d2c20beb3c842181e1"
-  dependencies:
-    "@types/node" "*"
-
 "@types/node@*":
   version "10.5.3"
   resolved "https://registry.npmjs.org/@types/node/-/node-10.5.3.tgz#5bcfaf088ad17894232012877669634c06b20cc5"
